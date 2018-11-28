@@ -13,6 +13,10 @@ type Server struct {
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	rpath := r.URL.Path
+	if rpath == "/tasks" {
+		s.showTasks(w)
+		return
+	}
 	task := s.getTask(rpath)
 	if task == nil {
 		w.WriteHeader(404)
@@ -36,6 +40,11 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+}
+
+func (s *Server) showTasks(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(s.config.toCleanJSON())
 }
 
 func (s *Server) getTask(path string) *Task {

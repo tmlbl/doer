@@ -3,8 +3,8 @@ package main
 type Task struct {
 	Name     string   `json:"name"`
 	Commands []string `json:"commands"`
-	Params   []Param  `json:"params"`
-	Secret   string   `json:"secret"`
+	Params   []Param  `json:"params,omitempty"`
+	Secret   string   `json:"secret,omitempty"`
 }
 
 type Param struct {
