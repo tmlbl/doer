@@ -22,12 +22,12 @@ func main() {
 	config := loadConfig(configPath)
 	server := Server{config}
 
-	addr := fmt.Sprintf(":%d")
+	addr := fmt.Sprintf(":%d", port)
 	if certPath == "" {
-		log.Println("Starting the server with plain HTTP on port", port)
-		http.ListenAndServe(":8778", &server)
+		log.Println("Starting the server with plain HTTP on", addr)
+		http.ListenAndServe(addr, &server)
 	} else {
-		log.Println("Starting the server with HTTPS on port", port)
-		http.ListenAndServeTLS(":8778", certPath, privKeyPath, &server)
+		log.Println("Starting the server with HTTPS on", addr)
+		http.ListenAndServeTLS(addr, certPath, privKeyPath, &server)
 	}
 }
